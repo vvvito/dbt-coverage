@@ -693,8 +693,8 @@ class CoverageDiff:
         elif self.after.entity_type == CoverageReport.EntityType.CATALOG:
             buf = io.StringIO()
             if self.report_format == Format.MARKDOWN_TABLE:
-                buf.write("|     | Before (%) | After (%) | \n")
-                buf.write("|:----|:----------:|----------:| \n")
+                buf.write("|     | before (%) | after (%) | \n")
+                buf.write("|:----|:----------:|:--------:| \n")
                 buf.write(self._new_miss_summary_row())
                 for table in self.new_misses.values():
                     buf.write(table.new_misses_summary())
