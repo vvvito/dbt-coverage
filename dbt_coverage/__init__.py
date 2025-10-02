@@ -693,8 +693,9 @@ class CoverageDiff:
         elif self.after.entity_type == CoverageReport.EntityType.CATALOG:
             buf = io.StringIO()
             if self.report_format == Format.MARKDOWN_TABLE:
+                buf.write("|     | Before (%) | After (%) | \n")
+                buf.write("|:----|:----------:|----------:| \n")
                 buf.write(self._new_miss_summary_row())
-                buf.write("|:----|:----:|:--:|----:| \n")
                 for table in self.new_misses.values():
                     buf.write(table.new_misses_summary())
             else:
@@ -715,8 +716,6 @@ class CoverageDiff:
             )
 
     def _new_miss_summary_row(self, last: bool = False):
-        """
-        """
         if self.after.entity_type == CoverageReport.EntityType.CATALOG:
             title_prefix = ""
         elif self.after.entity_type == CoverageReport.EntityType.TABLE:
@@ -743,9 +742,10 @@ class CoverageDiff:
         after_total = len(self.after.total)
         after_coverage = f"({self.after.coverage:.2%})"
 
+        
         buf = io.StringIO()
         if self.report_format == Format.MARKDOWN_TABLE:
-            buf.write(f"| {title} | {before_covered}/{before_total} {before_coverage} | -> | {after_covered}/{after_total} {after_coverage} | \n")
+            buf.write(f"| {title} | {before_covered}/{before_total} {before_coverage} | {after_covered}/{after_total} {after_coverage} | \n")
         else:
             buf.write(f"{title:50}")
             buf.write(f"{before_covered:>5}/{before_total:<5}{before_coverage:^9}")
